@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Liebre y Conejo</title>
+</head>
+<body>
+    <main>
+        <div class="red-turn-text mobile">
+            Reds turn
+        </div>
+
+        <div><h1>JUEGO DE LA LIEBRE Y EL CONEJO </h1></div>
+        <div>
+            <input type="button" value="iniciar juego" onclick="iniciarJuego()">
+        </div>
+        <div>
+            <table>
+            <tr>
+                <td ><div id="dado1"></div> </td>
+                <td><div id="dado2"></div></td>
+            </tr>
+            </table>
+        </div>
+        <div>
+            <input type="button" value="Tirar dados" onclick="getToken()">
+        </div>
+        <div id="tabla">
+
+            
+        </div>
+        <div id=tiro>
+
+        </div>
+
+        <div class="desktop">
+            <div class="red-turn-text" id="u1" style="color: #1B4F72;">
+                
+            </div>
+            <p id="divider">|</p>
+            <div class="black-turn-text" id="u2"  style="color: #000000;">
+               
+            </div>
+        </div>
+        <div class="black-turn-text mobile">
+            Blacks turn
+        </div>
+    </main>
+    <script  src="/script.js"></script>
+</body>
+</html> 
+
+
