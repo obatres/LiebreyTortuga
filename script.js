@@ -134,9 +134,34 @@ function tirarDados(tokenpass){
    moverJugador(tiro1,tiro2);
 }
 
+function moveconejo(dado1,dado2){
+   if (dado1 == dado2){
+       switch(dado1){
+           case 6:
+           case 4:
+           case 2:
+               return -dado1
+           case 1:
+               return 0
+           default:
+               return dado1*2
+       }
+   }else{
+       var suma = dado1 + dado2
+       if (suma % 2 == 0) return suma/2
+       else return Math.abs(dado1-dado2)
+   }
+}
+
 function moverJugador(tiro1, tiro2){
    console.log("el u1 va en: ",u1);
-   u1=u1+(tiro1+tiro2);
+   var posiciones = moveconejo(tiro1,tiro2);
+   if(posiciones == 0){
+      u1 =1;
+   }else{
+      u1=u1+(posiciones);
+   }
+   
    document.getElementById(u1.toString()).appendChild(node);
    document.getElementById(u2.toString(10)).appendChild(node2);
    console.log("ahora va en: ",u1);
