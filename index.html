@@ -21,6 +21,8 @@
         <div>
             <input type="button" value="iniciar juego" onclick="iniciarJuego()">
         </div>
+
+        
         <div>
             <table>
             <tr>
@@ -29,9 +31,17 @@
             </tr>
             </table>
         </div>
+
         <div>
             <input type="button" value="Tirar dados" onclick="getToken()">
         </div>
+
+        <div>
+
+            <button id="send" title="Terminar turno!" style="width: 100%; height: 30px;" >Terminar turno!</button>
+        
+        </div>
+
         <div id="tabla">
 
             
@@ -54,6 +64,53 @@
         </div>
     </main>
     <script  src="/script.js"></script>
+    <script>
+        (function() {
+            const sendBtn = document.querySelector('#send');
+            const dado1 = document.getElementById('dado1').getElementsByTagName("*");
+            const dado2 = document.getElementById('dado2').getElementsByTagName("*");
+            let ws;
+
+            function showMessage(message) {
+                dado1[0].src=(message);
+                
+            }
+
+      
+          function init() {
+            if (ws) {
+              ws.onerror = ws.onopen = ws.onclose = null;
+              ws.close();
+            }
+      
+            ws = new WebSocket('ws://localhost:6969');
+            ws.onopen = () => {
+              console.log('Connection opened!');
+            }
+            ws.onmessage = ({ data }) =>{
+                showMessage(data);
+                
+            } 
+            ws.onclose = function() {
+              ws = null;
+            }
+          }
+      
+          sendBtn.onclick = function() {
+            if (!ws) {
+              showMessage("No WebSocket connection :(");
+              return ;
+            }
+            
+            ws.send(dado1[0].src);
+            showMessage(dado1[0].src);
+
+          }
+      
+          init();
+        })();
+      </script>
+      
 </body>
 </html> 
 

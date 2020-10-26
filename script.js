@@ -1,13 +1,13 @@
-let tamanio = 0; 
+let tamanio = 50; 
 //usuarios
-let user1 = "";
-let user2 = "";
+let user1 = "conejo";
+let user2 = "tortuga";
 
 //personajes
-let pers1 = "";
-let pers2 = "";
+let pers1 = "c";
+let pers2 = "t";
 //turno
-let turno = "";
+let turno = "conejo";
 
 //dados
 let tiro = [];
@@ -26,46 +26,6 @@ let u1 = 0;
 let u2 = 0;
 // seccion de peticiones 
 
-//tamaño tablero
-jQuery.ajax({
-   url: 'http://34.122.16.223/web/index.php/service/tam' ,
-   success: function (result) {
-     //  alert(result);
-       tamanio = result;
-   },
-   async: false
-});
-
-jQuery.ajax({
-   url: 'http://34.122.16.223/web/index.php/service/jugadores' ,
-   success: function (result) {
-       //tamanio = result;
-     //  console.log(result[0]);
-     user1 = result[0];
-     user2 = result[1];
-   },
-   async: false
-});
-
-jQuery.ajax({
-   url: 'http://34.122.16.223/web/index.php/service/personajes' ,
-   success: function (result) {
-       //tamanio = result;
-     //  console.log(result[0]);
-     pers1 = result[0];
-     pers2 = result[1];
-   },
-   async: false
-});
-
-jQuery.ajax({
-   url: 'http://34.122.16.223/web/index.php/service/turno' ,
-   success: function (result) {
-     //  alert(result);
-       turno = result;
-   },
-   async: false
-});
 
 function iniciarJuego(){
    //inicia variables de posicion y dados
@@ -73,6 +33,8 @@ function iniciarJuego(){
    u2=1;
    dado1 = 1;
    dado2 = 1;
+   user1 = "conejo";
+   user2 = "tortuga";
    //coloca la imagen de cada dado
    let imgs = ['dado1.png', 'dado2.png', 'dado3.png', 'dado4.png', 'dado5.png', 'dado6.png'];
    let htmld1 = `<img src="/${imgs[dado1-1]}" width="100%" ></img>`;
@@ -82,10 +44,14 @@ function iniciarJuego(){
    // coloca a cada jugador
    document.getElementById(u1.toString()).appendChild(node);
    document.getElementById(u2.toString()).appendChild(node2);
+   // coloca nombre de jugadores
+   document.getElementById("u1").innerHTML = user1 + "Turno";
+   document.getElementById("u2").innerHTML = user2;
+   
 }
 
-function empiezaJuego(){
-   
+function empiezaJuego(){ 
+
 }
 
 //funcion para obtener un nuevo token
@@ -166,18 +132,6 @@ function moverJugador(tiro1, tiro2){
    document.getElementById(u2.toString(10)).appendChild(node2);
    console.log("ahora va en: ",u1);
 }
-
-
-jQuery.ajax({
-   url: 'http://34.122.16.223/web/index.php/service/posiciones' ,
-   success: function (result) {
-       //tamanio = result;
-     //  console.log(result[0]);
-     u1 = result[0];
-     u2 = result[1];
-   },
-   async: false
-});
 
 
 // se arma tablero con id en posicion en forma se serpiente
@@ -295,8 +249,6 @@ node2.style.width = "50%";
 
 
 
-document.getElementById(u1.toString()).appendChild(node);
-document.getElementById(u2.toString()).appendChild(node2);
 
 //se pinta usuarios y turno
 
@@ -311,10 +263,3 @@ document.getElementById("u2").innerHTML = user2  + " - turno";
 else
 document.getElementById("u2").innerHTML = user2;
 
-//document.getElementById("tiro").innerHTML ="<h1>"+token+"</h1>";
-
-
-
-
-
-//console.log(tablero);

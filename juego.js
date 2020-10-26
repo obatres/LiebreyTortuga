@@ -17,8 +17,7 @@ app.get('/', (req, res) => {
 
 app.get('/juego/:ide', function (req, res) {
 
-  console.log(req.header);
-        res.sendFile('index.html', { root: "./" }); //Render el html para que se conecte al socket
+    res.sendFile('index.html', { root: "./" }); //Render el html para que se conecte al socket
  
 });
 
