@@ -69,11 +69,15 @@
             const sendBtn = document.querySelector('#send');
             const dado1 = document.getElementById('dado1').getElementsByTagName("*");
             const dado2 = document.getElementById('dado2').getElementsByTagName("*");
+            var datos = [];
             let ws;
 
+            
             function showMessage(message) {
-                dado1[0].src=(message);
-                
+                const pass = String(message).split(",");
+                console.log(pass[0]);
+                dado1[0].src=(pass[0]);
+                dado2[0].src=(pass[1]);
             }
 
       
@@ -87,10 +91,10 @@
             ws.onopen = () => {
               console.log('Connection opened!');
             }
-            ws.onmessage = ({ data }) =>{
-                showMessage(data);
-                
-            } 
+            ws.onmessage = ({ data }) => {
+                console.log("socket-----",data);
+                showMessage(data); 
+            }
             ws.onclose = function() {
               ws = null;
             }
@@ -101,9 +105,11 @@
               showMessage("No WebSocket connection :(");
               return ;
             }
-            
-            ws.send(dado1[0].src);
-            showMessage(dado1[0].src);
+            datos[0]=dado1[0].src;
+            datos[1]=dado2[0].src;
+            console.log("esto se manda en Onclick",datos);
+            ws.send(datos);
+            showMessage(datos);
 
           }
       
