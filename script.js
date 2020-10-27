@@ -1,13 +1,19 @@
-let tamanio = 50; 
+let tamanio = 100; 
 //usuarios
-let user1 = "conejo";
-let user2 = "tortuga";
+let user1 = "USUARIO A";
+let user2 = "USUARIO B";
 
 //personajes
-let pers1 = "c";
-let pers2 = "t";
+let pers1 = "conejo";
+let pers2 = "tortuga";
 //turno
 var turno = "jugador1";
+
+// espera en el arbol
+var arbol=false;
+
+// ganador
+var ganador="";
 
 //dados
 let tiro = [];
@@ -16,9 +22,9 @@ let dado2 = 0;
 //token para pedir los dados
 let token=""
 //faltan peticiones
-let estrellas = [24,10];
-let arboles = [5, 32];
-let hoyos = [22];
+let estrellas = [24,60];
+let arboles = [4,50,70,90];
+let hoyos = [35,78,10];
 
 // posiciones jugadores
 
@@ -33,8 +39,8 @@ function iniciarJuego(){
    u2=1;
    dado1 = 1;
    dado2 = 1;
-   user1 = "conejo";
-   user2 = "tortuga";
+   user1 = "USUARIO A";
+   user2 = "USUARIO B";
    //coloca la imagen de cada dado
    let imgs = ['dado1.png', 'dado2.png', 'dado3.png', 'dado4.png', 'dado5.png', 'dado6.png'];
    let htmld1 = `<img src="/${imgs[dado1-1]}" width="100%" ></img>`;
@@ -51,8 +57,11 @@ function iniciarJuego(){
    document.getElementById("u2").innerHTML = user2 + "-Jugador 2";
    // coloca el turno
    document.getElementById("turno").innerHTML = turno;
+   // coloca ell tipo de jugador
+   document.getElementById("tipo1").innerHTML = pers1;
+   document.getElementById("tipo2").innerHTML = pers2;
 
-
+   document.getElementById("ganador").innerHTML = ganador;
 }
 
 //funcion para obtener un nuevo token
@@ -98,10 +107,9 @@ function tirarDados(tokenpass){
    document.getElementById("dado2").innerHTML = htmld2;
 
    //Se mueve el jugador
-   console.log("ANTES DE MOVER: ",turno);
+
    moverJugador(tiro1,tiro2);
 
-   console.log("DESPUES DE MOVER: ",turno);
    return;
 }
 
@@ -124,55 +132,213 @@ function moveconejo(dado1,dado2){
    }
 }
 
-
-
-function moverJugador(tiro1, tiro2){
-
-   var posiciones = moveconejo(tiro1,tiro2);
-   var pre=0;
-   turno = document.getElementById("turno").innerHTML;
-   console.log("ANTES DE MOVER CON: ", turno);
-   if(turno=="jugador1"){
-      if(posiciones == 0){
-         u1 =1;
-      }else{
-         pre=u1+(posiciones);
-         if(pre<=0){
-            u1=1;
-         }else{
-            u1=pre;
-         }
-      }
-      document.getElementById(u1.toString()).appendChild(node);
-      document.getElementById("pos1").innerText = u1;
-      console.log("ANTES J1: ",turno);
-      turno = "jugador2";
-      document.getElementById("turno").innerHTML = turno ;
-      console.log("DESPUES J1: ", turno);
-      return;
+function movetortuga(dado1,dado2){
+   if (dado1 == dado2){
+       if (dado1 > 3) return -dado1
+       else return dado1*2
    }else{
-      if(posiciones == 0){
-         u2 =1;
-      }else{
-         pre=u2+(posiciones);
-         if(pre<=0){
-            u2=1;
-         }else{
-            u2=pre;
-         }
-      }
-      document.getElementById(u2.toString()).appendChild(node2);
-      document.getElementById("pos2").innerHTML = u2;
-      console.log("ANTES J2: ",turno);
-      turno = "jugador1";
-      document.getElementById("turno").innerHTML = turno ;
-      console.log("DESPUES J2: ", turno);
-      return;
+       var suma = dado1 + dado2
+       if (suma % 2 == 0) return suma
+       else{
+           if (dado1>dado2) return -dado2
+           else return -dado1
+       }
    }
-
-
 }
 
+function moverJugador(tiro1, tiro2){
+   var posiciones = 0;
+   var pre=0;
+   turno = document.getElementById("turno").innerHTML;
+   // verifica que sea el turno del jugador 1
+   if(turno=="jugador1"){
+      // verifica que el personaje que tenga es el conejo
+      if(pers1=="conejo"){
+         // Realiza los movimientos del conejo
+         if(arbol==false){
+            posiciones = moveconejo(tiro1,tiro2);
+            if(posiciones == 0){
+               u1 =1;
+            }else{
+               pre=u1+(posiciones);
+               if(pre<=0){
+                  u1=1;
+               }else{
+                  u1=pre;
+               }
+            }
+         }else{
+            posiciones = 0 ;
+            u1 =u1+posiciones;
+            arbol=false;
+            verificarCasillaEspecial(u1+1);
+         }
+      // verifica que el personaje no sea el conejo
+      }else{
+         // Reliza los movimientos de la tortuga
+         if(arbol==false){
+            posiciones = movetortuga(tiro1,tiro2);
+            pre=u1+(posiciones);
+            if(pre<=0){
+               u1=1;
+            }else{
+               u1=pre;
+            }
+         }else{
+            posiciones = 0;
+            u1=u1+posiciones;
+            arbol=false;
+            verificarCasillaEspecial(u1+1);
+         }
+      }
+      if (u1>=100){
+         u1=100;
+         ganador="JUGADOR 1 HA GANADO!";
+         document.getElementById("ganador").innerHTML=ganador;
+         document.getElementById("pos1").innerText = u1;
+         document.getElementById(u1.toString()).appendChild(node);
+         return;
+      }else{
+
+         // Posiciona al jugador
+         document.getElementById(u1.toString()).appendChild(node);
+         // Actualiza el marcador
+         document.getElementById("pos1").innerText = u1;
+         verificarCasillaEspecial(u1);
+         return;
+      }
+
+      // Verificar que sea turno del jugador 2
+   }else if(turno=="jugador2"){
+
+      // Verifica que el personaje sea conejo
+      if(pers2=="conejo"){
+         // Realiza los movimientos de conejo
+         if(arbol==false){
+            posiciones = moveconejo(tiro1,tiro2);
+            if(posiciones == 0){
+               u2 =1;
+            }else{
+               pre=u2+(posiciones);
+               if(pre<=0){
+                  u2=1;
+               }else{
+                  u2=pre;
+               }
+            }
+         }else{
+            u2=u2+0;
+            arbol=false;
+            verificarCasillaEspecial(u2+1);
+         }
+
+      // Verifica que el personaje sea tortuga   
+      }else if(pers2=="tortuga"){
+         // Realiza los movimientos de tortuga
+         if(arbol==false){
+            posiciones = movetortuga(tiro1,tiro2);
+            pre=u2+(posiciones);
+            if(pre<=0){
+               u2=1;
+            }else{
+               u2=u2+pre;
+            }
+         }else{
+            u2=u2+0;
+            arbol=false;
+            verificarCasillaEspecial(u2+1);
+         }
+
+      }
+
+      if (u2>=100){
+         u2=100;
+         ganador="JUGADOR 2 HA GANADO!";
+         document.getElementById("ganador").innerHTML=ganador;
+         document.getElementById("pos2").innerText = u2;
+         document.getElementById(u2.toString()).appendChild(node2);
+         return;
+      }else{
+         // posiciona el jugador 2
+         document.getElementById(u2.toString()).appendChild(node2);
+         // Actualiza el marcador
+         document.getElementById("pos2").innerHTML = u2;
+
+         verificarCasillaEspecial(u2);
+         return;
+      }
+   }
+}
+
+function verificarCasillaEspecial(posicion){
+   turno = document.getElementById("turno").innerHTML;
+      // Casilla estrella
+      if( posicion == 24 || posicion==60){
+         document.getElementById("turno").innerHTML=turno;
+         turno=document.getElementById("turno").innerHTML;
+         return;
+
+      // Casilla arbol
+      }else if(posicion==4 || posicion == 50 || posicion==70 || posicion ==90){
+         arbol = true;
+         return;
+      
+      // Casilla hoyo
+      }else if(posicion==35 || posicion == 78 || posicion ==10){
+         // obtiene los personajes
+         pers1 = document.getElementById("tipo1").innerHTML;
+         pers2 = document.getElementById("tipo2").innerHTML;
+
+         // Verifica los personajes de los jugadores
+         if(pers1=="conejo"){
+            console.log("CAMBIO DE TORTUGA A CONEJO JUGADOR 1");
+            node2.src="/conejo1.svg";
+            node.src="/tortuga2.svg";
+            // Actualilza los tipos en la pantalla
+            document.getElementById("tipo1").innerHTML="tortuga";
+            document.getElementById("tipo2").innerHTML="conejo";
+         }else if(pers1=="tortuga"){
+            console.log("CAMBIO DE TORTUGA A CONEJO JUGADOR 2");
+            node2.src="/tortuga2.svg";
+            node.src="/conejo1.svg";
+            // Actualilza los tipos en la pantalla
+            document.getElementById("tipo1").innerHTML="conejo";
+            document.getElementById("tipo2").innerHTML="tortuga";
+         }
+
+         // Actualiza las imagenes de los jugadores
+         document.getElementById(u1.toString()).appendChild(node);
+         document.getElementById(u2.toString()).appendChild(node2);
+
+         if(turno=="jugador1"){
+            // Actualiza el turno
+            turno = "jugador2";
+            // Muestra el turno
+            document.getElementById("turno").innerHTML = turno ;
+         }else{
+            // Actualiza el turno
+            turno = "jugador1";
+            // Muestra el turno
+            document.getElementById("turno").innerHTML = turno ;
+         }
+         return;
+      }else{
+         // Casilla normal
+         if(turno=="jugador1"){
+            // Actualiza el turno
+            turno = "jugador2";
+            // Muestra el turno
+            document.getElementById("turno").innerHTML = turno ;
+         }else{
+            // Actualiza el turno
+            turno = "jugador1";
+            // Muestra el turno
+            document.getElementById("turno").innerHTML = turno ;
+         }
+         return;
+      }
+  
+}
 
 // se arma tablero con id en posicion en forma se serpiente
 let id = 1;
@@ -266,10 +432,10 @@ $(fin).css("background-size", "cover");
 let per1img = "";
 let per2img = "";
 
-if (pers1 == "c") per1img = "/conejo1.svg";
+if (pers1 == "conejo") per1img = "/conejo1.svg";
 else per1img = "/tortuga1.svg";
 
-if (pers2 == "t") per2img = "/tortuga2.svg";
+if (pers2 == "tortuga") per2img = "/tortuga2.svg";
 else per2img = "/conejo2.svg";
 
 let htmlu1 = `<img  src="${per1img}"  width="50%" id="miimagen"></img>`;
@@ -292,5 +458,7 @@ node2.style.width = "50%";
 node2.id="personaje2";
 
 
+document.getElementById("tipo1").innerHTML = pers1;
+document.getElementById("tipo2").innerHTML = pers2;
 
 

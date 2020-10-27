@@ -45,6 +45,9 @@
             <button id="send" title="Terminar turno!" style="width: 100%; height: 30px;" >Terminar turno!</button>
         
         </div>
+        <div class="red-turn-text" id="ganador" style="color: #fc0000;">
+
+        </div>
 
         <div id="tabla">
 
@@ -55,17 +58,27 @@
         </div>
 
         <div class="desktop">
-            <div class="red-turn-text" id="u1" style="color: #1B4F72;">
+            <div class="red-turn-text" id="u1" style="color: #ad0b0b;">
                 
             </div>
-            <div class="red-turn-text" id="pos1" style="color: #1B4F72;">
+            <br>
+            <div class="red-turn-text" id="pos1" style="color: #088a03;">
+
+            </div>
+            <br>
+            <div class="red-turn-text" id="tipo1" style="color: #1B4F72;">
 
             </div>
             <p id="divider">|</p>
-            <div class="black-turn-text" id="u2"  style="color: #000000;">
+            <div class="black-turn-text" id="u2"  style="color: #ad0b0b;">
                
             </div>
-            <div class="red-turn-text" id="pos2" style="color: #1B4F72;">
+            <br>
+            <div class="red-turn-text" id="pos2" style="color: #088a03;">
+
+            </div>
+            <br>
+            <div class="red-turn-text" id="tipo2" style="color: #1B4F72;">
 
             </div>
         </div>
@@ -85,6 +98,9 @@
             const label1 = document.getElementById('u1');
             const label2 = document.getElementById('u2');
             const turno = document.getElementById('turno');
+            const tipo1 = document.getElementById('tipo1');
+            const tipo2 = document.getElementById('tipo2');
+            const ganador = document.getElementById('ganador');
             //const personaje1;
             var datos = [];
             let ws;
@@ -94,6 +110,8 @@
                 const pass = String(message).split(",");
                 dado1[0].src=(pass[0]);
                 dado2[0].src=(pass[1]);
+                pos1.personaje1.src = pass[10];
+                pos1.personaje2.src = pass[11];
                 document.getElementById(pass[2]).appendChild(pos1.personaje1);
                 document.getElementById(pass[3]).appendChild(pos1.personaje2);
                 u1.innerText = pass[2];
@@ -101,6 +119,9 @@
                 label1.innerHTML = pass[4];
                 label2.innerHTML = pass[5];
                 turno.innerHTML = pass[6];
+                tipo1.innerHTML = pass[7];
+                tipo2.innerHTML = pass[8];
+                ganador.innerHTML = pass[9];
               }
 
       
@@ -134,6 +155,11 @@
             datos[4]=label1.innerHTML;
             datos[5]=label2.innerHTML;
             datos[6]=turno.innerHTML;
+            datos[7]=tipo1.innerHTML;
+            datos[8]=tipo2.innerHTML;
+            datos[9]=ganador.innerHTML;
+            datos[10]=pos1.personaje1.src;
+            datos[11]=pos1.personaje2.src;
             ws.send(datos);
             showMessage(datos);
 
