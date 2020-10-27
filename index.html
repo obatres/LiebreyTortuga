@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <title>Liebre y Conejo</title>
+    <title>Liebre y Tortuga</title>
 </head>
 <body>
     <main>
@@ -17,7 +17,7 @@
             Reds turn
         </div>
 
-        <div><h1>JUEGO DE LA LIEBRE Y EL CONEJO </h1></div>
+        <div><h1>JUEGO DE LA LIEBRE Y LA TORTUGA </h1></div>
         <div>
             <input type="button" value="iniciar juego" onclick="iniciarJuego()">
         </div>
@@ -54,9 +54,15 @@
             <div class="red-turn-text" id="u1" style="color: #1B4F72;">
                 
             </div>
+            <div class="red-turn-text" id="pos1" style="color: #1B4F72;">
+
+            </div>
             <p id="divider">|</p>
             <div class="black-turn-text" id="u2"  style="color: #000000;">
                
+            </div>
+            <div class="red-turn-text" id="pos2" style="color: #1B4F72;">
+
             </div>
         </div>
         <div class="black-turn-text mobile">
@@ -69,16 +75,23 @@
             const sendBtn = document.querySelector('#send');
             const dado1 = document.getElementById('dado1').getElementsByTagName("*");
             const dado2 = document.getElementById('dado2').getElementsByTagName("*");
+            const pos1 = document.getElementById('tabla').getElementsByTagName("img");
+            const u1 = document.getElementById('pos1');
+            const u2 = document.getElementById('pos2');
+            //const personaje1;
             var datos = [];
             let ws;
 
             
             function showMessage(message) {
                 const pass = String(message).split(",");
-                console.log(pass[0]);
                 dado1[0].src=(pass[0]);
                 dado2[0].src=(pass[1]);
-            }
+                document.getElementById(pass[2]).appendChild(pos1.personaje1);
+                document.getElementById(pass[3]).appendChild(pos1.personaje2);
+                u1.innerText = pass[2];
+                u2.innerText = pass[3];
+              }
 
       
           function init() {
@@ -92,7 +105,6 @@
               console.log('Connection opened!');
             }
             ws.onmessage = ({ data }) => {
-                console.log("socket-----",data);
                 showMessage(data); 
             }
             ws.onclose = function() {
@@ -107,7 +119,8 @@
             }
             datos[0]=dado1[0].src;
             datos[1]=dado2[0].src;
-            console.log("esto se manda en Onclick",datos);
+            datos[2]=u1.innerText;
+            datos[3]=u2.innerText;
             ws.send(datos);
             showMessage(datos);
 

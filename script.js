@@ -44,10 +44,13 @@ function iniciarJuego(){
    // coloca a cada jugador
    document.getElementById(u1.toString()).appendChild(node);
    document.getElementById(u2.toString()).appendChild(node2);
+   document.getElementById("pos1").innerHTML = u1;
+   document.getElementById("pos2").innerHTML = u2;
    // coloca nombre de jugadores
    document.getElementById("u1").innerHTML = user1 + "Turno";
    document.getElementById("u2").innerHTML = user2;
    
+
 }
 
 function empiezaJuego(){ 
@@ -129,7 +132,9 @@ function moverJugador(tiro1, tiro2){
    }
    
    document.getElementById(u1.toString()).appendChild(node);
-   document.getElementById(u2.toString(10)).appendChild(node2);
+   document.getElementById(u2.toString()).appendChild(node2);
+   document.getElementById("pos1").innerText = u1;
+   document.getElementById("pos2").innerHTML = u2;
    console.log("ahora va en: ",u1);
 }
 
@@ -232,21 +237,24 @@ else per1img = "/tortuga1.svg";
 if (pers2 == "t") per2img = "/tortuga2.svg";
 else per2img = "/conejo2.svg";
 
-let htmlu1 = `<img src="${per1img}" width="50%"></img>`;
-let htmlu2 = `<img src="${per2img}" width="50%"></img>`;
+let htmlu1 = `<img  src="${per1img}"  width="50%" id="miimagen"></img>`;
+let htmlu2 = `<img  src="${per2img}" id="personaje2" width="50%"></img>`;
 
 //console.log(u1.toString());
 var node = document.createElement("img");                 // Create a <li> node
+
 //var textnode = document.createTextNode(`src="${per1img}" width="50%"`);         // Create a text node
 node.src = per1img;
 node.style.width = "50%";
+node.id="personaje1";
 //node.appendChild(textnode); 
 
 var node2 = document.createElement("img");                 // Create a <li> node
+
 //var textnode = document.createTextNode(`src="${per1img}" width="50%"`);         // Create a text node
 node2.src = per2img;
 node2.style.width = "50%";
-
+node2.id="personaje2";
 
 
 
