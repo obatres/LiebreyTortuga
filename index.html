@@ -35,7 +35,11 @@
         <div>
             <input type="button" value="Tirar dados" onclick="getToken()">
         </div>
+        
+        <h3>Es el turno de: </h3>  
+        <h2 id="turno">
 
+        </h2>
         <div>
 
             <button id="send" title="Terminar turno!" style="width: 100%; height: 30px;" >Terminar turno!</button>
@@ -78,6 +82,9 @@
             const pos1 = document.getElementById('tabla').getElementsByTagName("img");
             const u1 = document.getElementById('pos1');
             const u2 = document.getElementById('pos2');
+            const label1 = document.getElementById('u1');
+            const label2 = document.getElementById('u2');
+            const turno = document.getElementById('turno');
             //const personaje1;
             var datos = [];
             let ws;
@@ -91,6 +98,9 @@
                 document.getElementById(pass[3]).appendChild(pos1.personaje2);
                 u1.innerText = pass[2];
                 u2.innerText = pass[3];
+                label1.innerHTML = pass[4];
+                label2.innerHTML = pass[5];
+                turno.innerHTML = pass[6];
               }
 
       
@@ -121,6 +131,9 @@
             datos[1]=dado2[0].src;
             datos[2]=u1.innerText;
             datos[3]=u2.innerText;
+            datos[4]=label1.innerHTML;
+            datos[5]=label2.innerHTML;
+            datos[6]=turno.innerHTML;
             ws.send(datos);
             showMessage(datos);
 

@@ -7,7 +7,7 @@ let user2 = "tortuga";
 let pers1 = "c";
 let pers2 = "t";
 //turno
-let turno = "conejo";
+var turno = "jugador1";
 
 //dados
 let tiro = [];
@@ -47,13 +47,11 @@ function iniciarJuego(){
    document.getElementById("pos1").innerHTML = u1;
    document.getElementById("pos2").innerHTML = u2;
    // coloca nombre de jugadores
-   document.getElementById("u1").innerHTML = user1 + "Turno";
-   document.getElementById("u2").innerHTML = user2;
-   
+   document.getElementById("u1").innerHTML = user1 + "-Jugador 1";
+   document.getElementById("u2").innerHTML = user2 + "-Jugador 2";
+   // coloca el turno
+   document.getElementById("turno").innerHTML = turno;
 
-}
-
-function empiezaJuego(){ 
 
 }
 
@@ -100,7 +98,11 @@ function tirarDados(tokenpass){
    document.getElementById("dado2").innerHTML = htmld2;
 
    //Se mueve el jugador
+   console.log("ANTES DE MOVER: ",turno);
    moverJugador(tiro1,tiro2);
+
+   console.log("DESPUES DE MOVER: ",turno);
+   return;
 }
 
 function moveconejo(dado1,dado2){
@@ -122,20 +124,53 @@ function moveconejo(dado1,dado2){
    }
 }
 
+
+
 function moverJugador(tiro1, tiro2){
-   console.log("el u1 va en: ",u1);
+
    var posiciones = moveconejo(tiro1,tiro2);
-   if(posiciones == 0){
-      u1 =1;
+   var pre=0;
+   turno = document.getElementById("turno").innerHTML;
+   console.log("ANTES DE MOVER CON: ", turno);
+   if(turno=="jugador1"){
+      if(posiciones == 0){
+         u1 =1;
+      }else{
+         pre=u1+(posiciones);
+         if(pre<=0){
+            u1=1;
+         }else{
+            u1=pre;
+         }
+      }
+      document.getElementById(u1.toString()).appendChild(node);
+      document.getElementById("pos1").innerText = u1;
+      console.log("ANTES J1: ",turno);
+      turno = "jugador2";
+      document.getElementById("turno").innerHTML = turno ;
+      console.log("DESPUES J1: ", turno);
+      return;
    }else{
-      u1=u1+(posiciones);
+      if(posiciones == 0){
+         u2 =1;
+      }else{
+         pre=u2+(posiciones);
+         if(pre<=0){
+            u2=1;
+         }else{
+            u2=pre;
+         }
+      }
+      document.getElementById(u2.toString()).appendChild(node2);
+      document.getElementById("pos2").innerHTML = u2;
+      console.log("ANTES J2: ",turno);
+      turno = "jugador1";
+      document.getElementById("turno").innerHTML = turno ;
+      console.log("DESPUES J2: ", turno);
+      return;
    }
-   
-   document.getElementById(u1.toString()).appendChild(node);
-   document.getElementById(u2.toString()).appendChild(node2);
-   document.getElementById("pos1").innerText = u1;
-   document.getElementById("pos2").innerHTML = u2;
-   console.log("ahora va en: ",u1);
+
+
 }
 
 
@@ -258,16 +293,4 @@ node2.id="personaje2";
 
 
 
-//se pinta usuarios y turno
-
-if(turno == user1)
-document.getElementById("u1").innerHTML = user1 + " - turno";
-else 
-document.getElementById("u1").innerHTML = user1;
-
-
-if(turno == user2)
-document.getElementById("u2").innerHTML = user2  + " - turno";
-else
-document.getElementById("u2").innerHTML = user2;
 
