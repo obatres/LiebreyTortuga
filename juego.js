@@ -5,11 +5,14 @@ const port = 3000
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
+const request = require('request');
 
 app.use(bodyParser.json())
 app.use(express.static('./'));
 var publicKEY  = fs.readFileSync('./publica.pem', 'utf8');
 
+var iptorneos = 'localhost:3000'
+var sendtoken = 'token'
 var verifyOptions = {
   algorithm:  ["RS256"]
  };
@@ -46,6 +49,16 @@ app.post('/simular/',function(req,res){
           id: partida,
           marcador: [fingame[0].pos,fingame[1].pos]
         }
+		
+		var url = 'http://'+iptorneos+'/partidas/'+partida
+		const options = {
+			url: url,
+			method: 'PUT',
+			headers: {'Authorization' : 'Bearer '+sendtoken},
+			json: enviar,
+		}
+		request.put(options)
+		
         res.status(201).send(enviar)
     });
 });
