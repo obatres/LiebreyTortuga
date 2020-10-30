@@ -13,6 +13,7 @@ var verifyOptions = {
 
 app.get('/', (req, res) => {
   
+  
 })
 
 app.get('/juego/:ide', function (req, res) {

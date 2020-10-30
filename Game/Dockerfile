@@ -1,15 +1,14 @@
 FROM node:12
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/game
 
 # Install app dependencies
 COPY package*.json ./
 RUN npm install
 
 # Bundle app source
-COPY [".", "/app"]
+COPY . .
 
 EXPOSE 3000
-
 CMD ["node","juego.js" ]
