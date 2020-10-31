@@ -64,7 +64,7 @@ app.post('/simular/',function(req,res){
     });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
@@ -192,3 +192,10 @@ function movetortuga(dado1,dado2){
   }
 }
 //----------------------------- FIN SIMULAR PARTIDAS-----------------------------------
+
+
+module.exports = {
+  server: server,
+  sdado: simulardado,
+  scasilla: simularcasillaespecial
+};
