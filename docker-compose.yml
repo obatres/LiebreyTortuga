@@ -3,7 +3,7 @@ services:
     game:
         build: ./Game
         ports:
-            - "3000:3000"
+            - "3001:3001"
         restart: on-failure 
         depends_on:
             - socket

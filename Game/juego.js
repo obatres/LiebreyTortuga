@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3001
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 app.use(express.static('./'));
 var publicKEY  = fs.readFileSync('./publica.pem', 'utf8');
 
-var iptorneos = 'localhost:3000'
+var iptorneos = 'localhost:3001'
 var sendtoken = 'token'
 var verifyOptions = {
   algorithm:  ["RS256"]
