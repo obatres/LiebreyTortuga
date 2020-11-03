@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 app.use(express.static('./'));
 var publicKEY  = fs.readFileSync('./publica.pem', 'utf8');
 
-var iptorneos = 'localhost:3001'
+var iptorneos = '34.67.137.28:3001'
 var sendtoken = 'token'
 var verifyOptions = {
   algorithm:  ["RS256"]
