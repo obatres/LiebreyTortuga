@@ -17,10 +17,10 @@ Para la liebre:
 * Si el valor de los dados son dos números diferentes, se suman ambos dados y si el resultado de esta suma es par sera divido entre 2 y avanzara las casillas del resultado obtenido.
 * Si el valor de los dados son dos números diferentes, se suman ambos dados y si el resultad de esta suma es impar, se realizara la resta de ambos números y se avanzara el valor absoluto de ese resultado.
 * Si el valor de los dados son iguales, entonces:
-* * Si el número en ambos dados es 6, retrocederá 6 casillas.
-* * Si el numero en ambos dados es 4, retrocedera 4 casillas.
-* * Si el numero en ambos dados es 2, retrocedera 2 casillas.
-* * Si el numero en ambos dados es 1, retrocedera a la 1era casilla del tablero.
+    * Si el número en ambos dados es 6, retrocederá 6 casillas.
+    * Si el numero en ambos dados es 4, retrocedera 4 casillas.
+    * Si el numero en ambos dados es 2, retrocedera 2 casillas.
+    * Si el numero en ambos dados es 1, retrocedera a la 1era casilla del tablero.
 * * Para el resto de numeros, se avanzara la suma de las caras del dado (por ejemplo: 3 y 3, avanza 6 posiciones).
 
 
@@ -28,8 +28,8 @@ Para la tortuga:
 * Si el valor de los dados es diferente, se suman y si el resultado es par se avanza esa cantidad de espacios.
 * Si el valor de los dados es diferente, se suman y si el resultado es impar se retrocederá la cantidad de espacios del dado con menor valor.
 * Si el valor de los dados son iguales, entonces:
-* * Si el número en ambos dados es 4, 5 o 6 retrocederá el valor de uno de los dados.
-* * Si el número en ambos dados es 1, 2 o 3 avanzará el valor de la suma de ambos dados.
+    * Si el número en ambos dados es 4, 5 o 6 retrocederá el valor de uno de los dados.
+    * Si el número en ambos dados es 1, 2 o 3 avanzará el valor de la suma de ambos dados.
 
 Casillas especiales:
 * **Estrella**
@@ -44,7 +44,7 @@ Casillas especiales:
 
 ## Getting Started
 
-Para ejecutar el proyecto será necesario acceder la siguiente dirección. En este apartado saldrá directamente el juego.
+Para ejecutar el proyecto será necesario acceder la siguiente [dirección](http://34.123.240.81:3001/). En este apartado saldrá directamente la funcionalidad del juego.
 ```
 http://34.123.240.81:3001/
 ```
