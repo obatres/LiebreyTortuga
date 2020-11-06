@@ -1,0 +1,16 @@
+version: '3'
+services:
+    game:
+        build: ./Game
+        ports:
+            - "3001:3001"
+        restart: on-failure 
+        depends_on:
+            - socket
+    socket: 
+        build: ./Sockets
+        ports:
+            - "6969:6969"
+        restart: on-failure 
+
+
