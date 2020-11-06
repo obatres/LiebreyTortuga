@@ -7,9 +7,11 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const process = require("./env.js");
+const cors = require('cors');
 
 app.use(bodyParser.json());
 app.use(express.static("./"));
+
 var publicKEY = fs.readFileSync("./publica.pem", "utf8");
 
 var sendtoken = "token";
@@ -17,6 +19,7 @@ var verifyOptions = {
   algorithm: ["RS256"],
 };
 
+app.use(cors());
 app.get("/", (req, res) => {});
 
 app.get("/juego/:ide", function (req, res) {
@@ -81,7 +84,6 @@ app.post("/simular/", function (req, res) {
           },
           data: JSON.parse(JSON.stringify({marcador: marcador})),
         };
-        console.log(config);
 
         axios(config)
           .then(function (response) {

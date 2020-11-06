@@ -9,6 +9,8 @@ const env = {
   SECRET_TORNEOS: "TorneoSecret",
   ID_DADOS: "Dados",
   SECRET_DADOS: "DadosSecret",
+  ID_JUEGO: "Juego",
+  SECRET_JUEGOS: "JuegoSecret",
 };
 
 module.exports.env = env;
