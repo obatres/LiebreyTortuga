@@ -33,13 +33,22 @@ Para la tortuga:
 
 Casillas especiales:
 * **Estrella**
-- Si alguno de los dos jugadores cae en una casilla estrella al terminar su turno, se le otorgara un tiro extra.
+    * Si alguno de los dos jugadores cae en una casilla estrella al terminar su turno, se le otorgara un tiro extra.
 
 * **Arbol**
-- Si alguno de los dos jugadores cae en una casilla arbol al terminar su turno, tendra que esperar un turno para realizar su siguiente tiro.
+    * Si alguno de los dos jugadores cae en una casilla arbol al terminar su turno, tendra que esperar un turno para realizar su siguiente tiro.
 
 * **Hoyo**
-- Si alguno de los dos jugadores cae en una casilla hoyo al terminar su turno, podra intercambiar de personaje dentro del tablero.
+    * Si alguno de los dos jugadores cae en una casilla hoyo al terminar su turno, podra intercambiar de personaje dentro del tablero.
+
+## Historial de versiones
+* 0.1.0
+    * Early Release: Implementación de la lógica del juego. 
+* 0.2.0
+    * Early Release: Creacion de contenedores, de servidor y pruebas unitarias, contruccion del codigo interpretado en Travis.
+* 1.0.0
+    * Primera versión: Primer release del juego.
+
 
 
 ## Getting Started
