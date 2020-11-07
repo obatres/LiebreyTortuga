@@ -6,8 +6,8 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const axios = require("axios");
-const process = require("./env.js");
-const cors = require('cors');
+const p = require("./env.js");
+const cors = require("cors");
 
 app.use(bodyParser.json());
 app.use(express.static("./"));
@@ -30,7 +30,10 @@ app.post("/generar/", function (req, res) {
   var partida = req.body.id;
   var jug1 = req.body.jugadores[0];
   var jug2 = req.body.jugadores[0];
-  res.send(201).sendFile("index.html", { root: "./" });
+  newlog("Se ha generado una nueva partida");
+  res.status(401).send({
+    message: "Nueva partida generada",
+  });
 });
 
 app.post("/simular/", function (req, res) {
@@ -42,7 +45,6 @@ app.post("/simular/", function (req, res) {
     });
     return;
   }
-  token = token.replace("Bearer ", "");
 
   jwt.verify(token, publicKEY, verifyOptions, function (err, user) {
     if (err) {
@@ -61,11 +63,11 @@ app.post("/simular/", function (req, res) {
     var config = {
       method: "post",
       url:
-        process.env.ENDPOINT_TOKENS +
+        p.env.ENDPOINT_TOKENS +
         "/token?id=" +
-        process.env.ID_TORNEOS +
+        p.env.ID_TORNEOS +
         "&secret=" +
-        process.env.SECRET_TORNEOS,
+        p.env.SECRET_TORNEOS,
       headers: {},
     };
 
@@ -73,16 +75,16 @@ app.post("/simular/", function (req, res) {
       .then(function (response) {
         var jwt = JSON.parse(JSON.stringify(response.data));
         var token = jwt.jwt;
-        
-        var marcador =  enviar.marcador;
+
+        var marcador = enviar.marcador;
         var config = {
           method: "put",
-          url: process.env.ENDPOINT_TORNEOS + "/partidas/" + partida,
+          url: p.env.ENDPOINT_TORNEOS + "/partidas/" + partida,
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
           },
-          data: JSON.parse(JSON.stringify({marcador: marcador})),
+          data: JSON.parse(JSON.stringify({ marcador: marcador })),
         };
 
         axios(config)
@@ -91,7 +93,10 @@ app.post("/simular/", function (req, res) {
             res.status(201).send({ marcador: enviar });
           })
           .catch(function (error) {
-            res.status(406).send({ message: "Error al procesar la solicitud w", err: error });
+            res.status(406).send({
+              message: "Error al procesar la solicitud w",
+              err: error,
+            });
           });
       })
       .catch(function (error) {
@@ -113,7 +118,6 @@ function verificarToken(token) {
 }
 
 //Funciones para simular la partida
-
 function simularjuego() {
   console.log("Simulando partida");
   var simj1 = { pos: 0, tipo: 1, mov: 0, casilla: "" };
@@ -230,6 +234,13 @@ function movetortuga(dado1, dado2) {
   }
 }
 
+function convert(data) {
+  fs.appendFile("log.txt", data + "\n", function (err) {
+    if (err) throw err;
+    console.log("Saved!");
+  });
+}
+
 function newlog(data) {
   let now = new Date();
   let fecha =
@@ -242,8 +253,9 @@ function newlog(data) {
     now.getHours() +
     ":" +
     now.getMinutes();
-  data = "[torneos]" + fecha + "-> " + data;
+  data = "[juegos]" + fecha + "-> " + data;
   console.log(data);
+  convert(data);
 }
 
 //----------------------------- FIN SIMULAR PARTIDAS-----------------------------------

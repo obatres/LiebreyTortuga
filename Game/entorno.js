@@ -14,5 +14,3 @@ const env = {
   ID_JUEGO: "Juego",
   SECRET_JUEGOS: "JuegoSecret",
 };
-
-module.exports.env = env;
