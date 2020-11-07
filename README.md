@@ -48,7 +48,8 @@ Casillas especiales:
     * Early Release: Creacion de contenedores, de servidor y pruebas unitarias, contruccion del codigo interpretado en Travis.
 * 1.0.0
     * Primera versión: Primer release del juego.
-
+* 1.1.0
+    * Agregar escritura de fichero con las acciones que se realizan.
 
 
 ## Getting Started
