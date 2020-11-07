@@ -47,12 +47,6 @@ app.post("/simular/", function (req, res) {
   }
 
   jwt.verify(token, publicKEY, verifyOptions, function (err, user) {
-    if (err) {
-      console.log(err);
-      newlog("Error token vencido");
-      res.status(401).send({ error: "Token vencido" });
-      return;
-    }
     var partida = req.body.id;
     var fingame = simularjuego();
     var enviar = {
