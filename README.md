@@ -1,4 +1,4 @@
-# Juego Liebre y Tortuga
+#  Juego Liebre y Tortuga
 
 Este juego es una adaptacion de la obra literia con el mismo nombre.
 
